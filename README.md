@@ -17,11 +17,11 @@ parameters are:
 | vaultName          | keyVault123   | The vaultName is used within the FQDN so has to be unique                                                               |
 | principalName      | me@myorg.com  | The principal running the script. Used to set their permissions on the key vault, allowing them to add the certificates |
 | password           | Password1     | The password in plain text, as the value added to the vault for the ARM template doesn't work with a secure string      |
-| clusterName        | secureCluster | The name of your new cluster, only needed to help generate the parameters.json file                                     |
+| clusterName        | securecluster | The name of your new cluster, only needed to help generate the parameters.json file                                     |
 
 
 ```powershell
-> .\CreateAndPopulateKeyVault.ps1 -resourceGroupName secureCluster -location "west europe" -vaultName keyVault123 -principalName me@myorg.com -password Password1 -clusterName secureCluster
+> .\CreateAndPopulateKeyVault.ps1 -resourceGroupName secureCluster -location "west europe" -vaultName keyVault123 -principalName me@myorg.com -password Password1 -clusterName securecluster
 ```
 
 This will then generate your parameters file which will contains the URLs of the certificates and the Id of the key vault. You will need to update it to include 
@@ -33,7 +33,7 @@ Once you are happy with the parameters file you can then deploy the ARM template
 
 ```powershell
 > Login-AzureRmAccount
-> New-AzureRmResourceGroupDeployment -name firstDeploy -resourceGroupName secureCluster -templateFile .\azuredeploy.json -templateParametersFile .\azuredeploy.parameters.json
+> New-AzureRmResourceGroupDeployment -name firstDeploy -resourceGroupName secureCluster -templateFile .\azuredeploy.json -templateParameterFile .\azuredeploy.parameters.json
 ```
 
 ### Application deployment steps
