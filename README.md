@@ -18,6 +18,8 @@ parameters are:
 | principalName      | me@myorg.com  | The principal running the script. Used to set their permissions on the key vault, allowing them to add the certificates |
 | password           | Password1     | The password in plain text, as the value added to the vault for the ARM template doesn't work with a secure string      |
 | clusterName        | securecluster | The name of your new cluster, only needed to help generate the parameters.json file                                     |
+| subscriptionId     | 123456-ab...  | The guid for the subscription you want to use, optional                                                                 |
+| oufFile            | C:\prms.json  | Output file for the parameters, optional                                                                                |
 
 
 ```powershell
