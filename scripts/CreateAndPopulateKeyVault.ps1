@@ -4,7 +4,9 @@
     [string]$vaultName,
     [string]$principalName,
     [string]$password,
-    [string]$clusterName
+    [string]$clusterName,
+    [string]$subscriptionId,
+    [string]$outFile
 )
 
 function Create-TestCertificate()
@@ -68,6 +70,8 @@ function Add-CertificateToVault()
     return Set-AzureKeyVaultSecret -VaultName $vaultName -Name $secretName -SecretValue $secret -ErrorAction Stop;
 }
 
+Set-AzureRmContext -SubscriptionId $subscriptionId
+
 $vault = Create-KeyVault -resourceGroupName $resourceGroupName -location $location -vaultName $vaultName -executingPrincipalName $principalName
 
 $clusterCert = Create-TestCertificate -subject "CN=Cluster Cert" -friendlyName ClusterServerCert -password $password -filePath ClusterServerCert.pfx
@@ -122,5 +126,5 @@ $parameters = @"
     }
 "@
 
-Out-File -FilePath ..\templates\azuredeploy.parameters.json -InputObject $parameters
+Out-File -FilePath $outFile -InputObject $parameters
 return $parameters;
