@@ -6,7 +6,7 @@
     [string]$password,
     [string]$clusterName,
     [string]$subscriptionId,
-    [string]$outFile
+    [string]$outFile = "..\templates\azuredeploy.parameters.json"
 )
 
 function Create-TestCertificate()
@@ -70,7 +70,9 @@ function Add-CertificateToVault()
     return Set-AzureKeyVaultSecret -VaultName $vaultName -Name $secretName -SecretValue $secret -ErrorAction Stop;
 }
 
-Set-AzureRmContext -SubscriptionId $subscriptionId
+if ($subscriptionId) {
+    Set-AzureRmContext -SubscriptionId $subscriptionId
+}
 
 $vault = Create-KeyVault -resourceGroupName $resourceGroupName -location $location -vaultName $vaultName -executingPrincipalName $principalName
 
